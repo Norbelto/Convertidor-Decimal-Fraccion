@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Decimal a Fracción</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convertidor de Decimal a Fracción</h1>
+        <input type="number" id="decimal" placeholder="Introduce un número decimal" step="any">
+        <button onclick="convertirDecimalAFraction()">Convertir</button>
+        <div class="result" id="resultado"></div>
+        <div class="footer">Api Desarrollada por <a href="https://norbelto.com" target="_blank">Norbelto.com</a></div>
+    </div>
+
+    <script>
+        function convertirDecimalAFraction() {
+            const decimal = parseFloat(document.getElementById('decimal').value);
+
+            if (isNaN(decimal)) {
+                document.getElementById('resultado').innerText = 'Por favor, introduce un número válido.';
+                return;
+            }
+
+            let numerador = decimal;
+            let denominador = 1;
+
+            while (!Number.isInteger(numerador)) {
+                numerador *= 10;
+                denominador *= 10;
+            }
+
+            const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+            const divisor = gcd(numerador, denominador);
+
+            numerador /= divisor;
+            denominador /= divisor;
+
+            document.getElementById('resultado').innerText = `La fracción es: ${numerador}/${denominador}`;
+        }
+    </script>
+</body>
+</html>
